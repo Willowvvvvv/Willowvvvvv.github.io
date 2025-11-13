@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willow Chen</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #000000;
+            --accent: #0066FF;
+            --bg: #FFFFFF;
+            --gray: #F5F5F5;
+            --nav-height: 50px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: clamp(14px, 3vw, 18px);
+            scroll-behavior: smooth;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        html::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        html.scrolling {
+            scrollbar-width: thin; /* Firefox */
+        }
+
+        html.scrolling::-webkit-scrollbar {
+            display: block; /* Chrome, Safari, Opera */
+            width: 8px;
+        }
+
+        html.scrolling::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        html.scrolling::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            background: var(--bg);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            pointer-events: none;
+            transition: position 0.3s ease;
+        }
+
+        header.scrolling {
+            position: relative;
+        }
+
+        nav {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 2rem 2rem 0;
+            pointer-events: auto;
+        }
+
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .pokeball-icon {
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: block;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .pokeball-icon:hover {
+            transform: rotate(15deg) scale(1.1);
+            animation-play-state: paused;
+        }
+
+        .pokeball-icon.clicked {
+            animation: pokeballBounce 0.6s ease-out;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg) translateX(0); }
+            25% { transform: rotate(-5deg) translateX(-2px); }
+            75% { transform: rotate(5deg) translateX(2px); }
+        }
+
+        @keyframes pokeballBounce {
+            0% { transform: rotate(0deg) translateX(0); }
+            25% { transform: rotate(-10deg) translateX(-3px); }
+            50% { transform: rotate(10deg) translateX(3px); }
+            75% { transform: rotate(-5deg) translateX(-2px); }
+            100% { transform: rotate(0deg) translateX(0); }
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: row;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 400;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a.active { 
+            color: var(--accent); 
+        }
+
+
+        /* 主容器 */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem 2rem 3rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .page.active { display: block; }
+
+        .page .hero {
+            padding-top: 0;
+        }
+
+        /* 非首页页面需要顶部间距 */
+        .page:not(#home) {
+            padding-top: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 首页 */
+        .hero {
+            height: calc(100vh - 6rem);
+            max-height: calc(100vh - 6rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            overflow: hidden;
+        }
+
+        h1 { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 800; }
+
+        .subtitle { font-size: 1.125rem; color: var(--accent); font-weight: 600; }
+
+        .tagline { font-size: 1rem; opacity: 0.85; }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--primary);
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* 内容样式 */
+        h2 { font-size: 1.25rem; font-weight: 800; margin: 2rem 0 1rem; }
+
+        .page > h2:first-child,
+        .page > h1:first-child {
+            margin-top: 0;
+        }
+
+        #cv h1 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 { font-size: 1rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+
+        p, li { margin: 0.75rem 0; font-size: 0.875rem; }
+
+        ul { padding-left: 1.5rem; list-style: none; }
+
+        ul li::before { content: '- '; color: var(--accent); margin-left: -1rem; }
+
+        /* 项目卡片 */
+        .project-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--gray);
+            border-radius: 4px;
+        }
+
+        .project-title { font-size: 1rem; font-weight: 800; color: var(--accent); }
+
+        .project-meta { font-size: 0.75rem; opacity: 0.7; margin-bottom: 1rem; }
+
+        /* 简历样式 */
+        .timeline-item {
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-period {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-company {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem 1rem;
+            margin: 1rem 0;
+        }
+
+        .cv-label {
+            font-weight: 600;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .capability-item {
+            margin-bottom: 1rem;
+        }
+
+        .capability-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .capability-item ul {
+            margin-top: 0.5rem;
+        }
+
+        .capability-item li {
+            font-size: 0.85rem;
+            margin: 0.25rem 0;
+        }
+
+        .media-container {
+            margin: 1rem 0;
+            background: rgba(0,102,255,0.05);
+            border: 1px dashed var(--accent);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .media-container video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .video-grid .media-container {
+            margin: 0;
+        }
+
+        /* 项目类型切换 */
+        .project-tabs {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0 1.5rem;
+            border-bottom: 2px solid var(--gray);
+        }
+
+        .project-tab {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #666;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .project-tab:hover {
+            color: var(--primary);
+        }
+
+        .project-tab.active {
+            color: var(--accent);
+        }
+
+        .project-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .project-list {
+            display: block;
+        }
+
+        .project-list.hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+
+            .pokeball-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            nav {
+                padding: 1.5rem 1rem 0;
+            }
+
+            .nav-left {
+                margin-top: 0.5rem;
+            }
+
+            .capability-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) {
+            main { padding: 2rem 2rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <div class="nav-left">
+                <ul class="nav-links" id="navLinks">
+                    <li><a onclick="showPage('home')" class="active">我</a></li>
+                    <li><a onclick="showPage('profile')">职业画像</a></li>
+                    <li><a onclick="showPage('projects')">项目经历</a></li>
+                    <li><a onclick="showPage('cv')">简历</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <img class="pokeball-icon" id="pokeballIcon" src="poke.png" alt="Theme toggle" width="48" height="48" onclick="togglePokeball()" loading="lazy" decoding="async">
+            </div>
+        </nav>
+    </header>
+
+    <main id="mainContent">
+        <!-- ========== 我 ========== -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1>Willow Chen</h1>
+                <div class="subtitle">AI产品经理 · 商业大数据方向</div>
+                
+                <p class="tagline">
+                    5年商业大数据AI产品经验，主导3个LLM应用从0到1落地。
+                    <br>服务万得、中金、财联社等10+机构，实现产品年收入超百万。
+                </p>
+
+                <p>目前专注于AI产品经理岗位，致力于将AI技术转化为可量化的商业价值。</p>
+
+                <div class="badges">
+                    <span class="badge">Cursor重度用户</span>
+                    <span class="badge">RAG架构师</span>
+                    <span class="badge">召回率89%</span>
+                    <span class="badge">准确率91%</span>
+                    <span class="badge">A/B测试</span>
+                    <span class="badge">Prompt工程</span>
+                    <span class="badge">数据驱动</span>
+                </div>
+
+                <p style="margin-top: 1rem;">
+                    <a href="mailto:willow.chen@email.com">cttshiwillow@gmail.com</a> 
+                </p>
+            </div>
+        </section>
+
+        <!-- ========== 职业画像 ========== -->
+        <section id="profile" class="page">
+            <div style="margin-top: 2rem; margin-bottom: 1rem;"></div>
+            <p style="font-size: 1rem; margin: 1rem 0;">
+                将AI技术转化为可量化的商业价值<br>
+                这是我的唯一目标
+            </p>
+
+            <h2>核心能力</h2>
+            <div class="capability-grid">
+                <div class="capability-item">
+                    <strong>🤖 AI产品能力</strong>
+                    <ul>
+                        <li>LLM场景化落地与Prompt工程</li>
+                        <li>RAG应用边界定义与效果评估</li>
+                        <li>Agent流程编排与向量检索策略</li>
+                        <li>AI-native交互设计范式</li>
+                    </ul>
+                </div>
+                <div class="capability-item">
+                    <strong>📊 数据驱动能力</strong>
+                    <ul>
+                        <li>指标体系设计与A/B测试</li>
+                        <li>SQL数据分析与埋点策略</li>
+                        <li>准确率/召回率业务调优</li>
+                        <li>ROI导向的迭代决策</li>
+                    </ul>
+                </div>
+                <div class="capability-item">
+                    <strong>💼 商业场景理解</strong>
+                    <ul>
+                        <li>投研风控与企业情报分析</li>
+                        <li>跨境贸易撮合与政府招商</li>
+                        <li>B端客户决策链洞察</li>
+                        <li>SaaS商业化与定价策略</li>
+                    </ul>
+                </div>
+                <div class="capability-item">
+                    <strong>🛠️ 技术工具栈</strong>
+                    <ul>
+                        <li>Cursor重度用户（产研全流程）</li>
+                        <li>Coze快速Demo验证</li>
+                        <li>Axure/Figma高保真原型</li>
+                        <li>Python/SQL数据分析</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>关键指标</h2>
+            <div class="capability-grid">
+                <div class="project-item">
+                    <div class="project-title">42%</div>
+                    <p>超级名单AI功能使用率</p>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">91%</div>
+                    <p>LLM回答准确率</p>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">89%</div>
+                    <p>召回率提升17pp</p>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">30min → 1min</div>
+                    <p>分析师效率提升</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 项目经历 ========== -->
+        <section id="projects" class="page">
+            <div style="margin-top: 2rem; margin-bottom: 1rem;"></div>
+
+            <div class="project-tabs">
+                <button class="project-tab active" onclick="switchProjectType('company')">公司项目</button>
+                <button class="project-tab" onclick="switchProjectType('personal')">个人项目</button>
+            </div>
+
+            <!-- 公司项目列表 -->
+            <div id="company-projects" class="project-list">
+                <article class="project-item" data-type="company">
+                    <h3 class="project-title">金融"五篇大文章" · 万得信息</h3>
+                    <div class="project-meta">2025.05 - 2025.07 · 满足金融机构合规报送需求</div>
+                    
+                    <h3>核心职责：</h3>
+                    <ul>
+                        <li>主导企业库批量查询架构升级，签约30+机构客户</li>
+                        <li>推动"五篇大文章"政策产品商业化</li>
+                    </ul>
+                </article>
+
+                <article class="project-item" data-type="company">
+                    <h3 class="project-title">超级名单 · 万得信息</h3>
+                    <div class="project-meta">2025.01 - 至今 · 商业智能数据平台 · 对话式查询 + 表格AI分析</div>
+                    <p style="margin: 0.5rem 0; font-size: 0.85rem;">
+                        <a href="https://gel.wind.com.cn/web/windLogin.html" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">访问产品 →</a>
+                    </p>
+                    
+                    <h3>核心职责：</h3>
+                    <ul>
+                        <li>通过20+客户访谈识别三大核心场景，设计置信度阈值与拒答策略，平衡准确性与用户体验</li>
+                        <li>定义知识库分层策略与混合检索方案，召回率提升17pp至89%；搭建角色Prompt模板库，回答准确率91%</li>
+                        <li>设计"AI生成列"功能，分析师手工操作从30分钟→1分钟；功能使用率占整体查询量42%，3家机构客户作为核心工具</li>
+                        <li>自建A/B测试框架，20+埋点驱动模型周迭代</li>
+                    </ul>
+
+                    <div class="video-grid">
+                        <div class="media-container">
+                            <video controls>
+                                <source src="超级名单.mp4" type="video/mp4">
+                                您的浏览器不支持视频播放。
+                            </video>
+                        </div>
+                        <div class="media-container">
+                            <video controls>
+                                <source src="超级名单-AI生成列.mp4" type="video/mp4">
+                                您的浏览器不支持视频播放。
+                            </video>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-item" data-type="company">
+                    <h3 class="project-title">AI生成内容验证 · 天仪基业</h3>
+                    <div class="project-meta">2024.03 · 周庄宣传片AI生成</div>
+                    
+                    <h3>核心职责：</h3>
+                    <ul>
+                        <li>验证Midjourney+Runway内容生产可行性，探索AIGC在营销场景的价值</li>
+                        <li>输出技术可行性报告与成本效益分析，为后续AIGC产品化提供决策依据</li>
+                    </ul>
+                </article>
+
+                <article class="project-item" data-type="company">
+                    <h3 class="project-title">APEXDATA商业情报平台 · 天仪基业</h3>
+                    <div class="project-meta">2022.11 - 2024.12 · 企业级情报SaaS · 服务60+企业/10000+个人用户</div>
+                    
+                    <h3>核心职责：</h3>
+                    <ul>
+                        <li>设计12类异构数据源整合方案，建立企业ID映射体系，数据覆盖率98%</li>
+                        <li>搭建尽调报告自动生成功能，聚合9大维度数据，尽调成本从数万元→数千元</li>
+                        <li>设计经营异常、股权变动、舆情危机三级预警机制，连续两年为财联社"科创好公司"评选提供评分</li>
+                        <li>2023年11-12月主导财联社「科创好公司」评选项目，从经营、资金、科创三大维度搭建企业科创能力评估模型，完成1000+企业评估验证</li>
+                        <li>制定SaaS订阅+API+私有化三层定价，主导标杆客户交付</li>
+                    </ul>
+
+                    <div class="media-container">
+                        <div class="media-placeholder">
+                            🎬 尽调报告自动生成Demo GIF<br>
+                            <span style="font-size: 0.75rem; opacity: 0.7;">替换为实际GIF</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-item" data-type="company">
+                    <h3 class="project-title">平安租赁SaaS平台 · 中电金信</h3>
+                    <div class="project-meta">2021.12 - 2022.11 · 设备租赁撮合平台 · 服务1000+制造企业</div>
+                    
+                    <h3>核心职责：</h3>
+                    <ul>
+                        <li>负责小程序/APP/后台/数字孪生工厂四端产品，实现全流程数字化</li>
+                        <li>策划10周年"制造互联-线上博览会"，直播PV 16W+，GMV超5000万</li>
+                    </ul>
+                </article>
+            </div>
+
+            <!-- 个人项目列表 -->
+            <div id="personal-projects" class="project-list hidden">
+                <article class="project-item" data-type="personal">
+                    <h3 class="project-title">ProtoFlow</h3>
+                    <div class="project-meta">2025.09 · 产品原型流程管理工具</div>
+                    
+                    <h3>项目描述：</h3>
+                    <ul>
+                        <li>基于Cursor开发的AI辅助产品原型设计工具</li>
+                        <li>支持快速生成交互原型和流程图</li>
+                        <li>集成AI能力，自动优化原型设计方案</li>
+                    </ul>
+                </article>
+
+                <article class="project-item" data-type="personal">
+                    <h3 class="project-title">AI产品管家</h3>
+                    <div class="project-meta">2025.06 · 一站式产品流程管理工具</div>
+                    
+                    <h3>项目描述：</h3>
+                    <ul>
+                        <li>面向产品经理的AI助手工具</li>
+                        <li>支持需求分析、PRD生成、数据分析等功能</li>
+                        <li>集成多种AI模型，提供一站式产品管理解决方案</li>
+                    </ul>
+
+                    <div class="media-container">
+                        <video controls>
+                            <source src="ai产品管家.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
+                </article>
+
+                <article class="project-item" data-type="personal">
+                    <h3 class="project-title">公众号<反思镜m>AI回复助手</h3>
+                    <div class="project-meta">2024.11 · 微信公众号智能客服系统</div>
+                    
+                    <h3>项目描述：</h3>
+                    <ul>
+                        <li>基于LLM的微信公众号自动回复系统</li>
+                        <li>支持多轮对话和上下文理解</li>
+                        <li>可自定义知识库和回复策略</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- ========== 完整简历 ========== -->
+        <section id="cv" class="page">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div>
+                    <h1>Willow Chen</h1>
+                    <p>AI产品经理 · 商业大数据方向</p>
+                    <p>
+                        <a href="mailto:cttshiwillow@gmail.com">cttshiwillow@gmail.com</a> | 
+                        <a href="tel:18888643061">1888XXXXXX061</a> | 
+                        上海（可远程）
+                    </p>
+                </div>
+                <a href="#" onclick="downloadResume()" style="
+                    color: var(--accent);
+                    text-decoration: none;
+                    font-size: 0.875rem;
+                    border-bottom: 1px solid var(--accent);
+                    padding-bottom: 1px;
+                    cursor: pointer;
+                    transition: opacity 0.3s ease;
+                " onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">下载简历</a>
+            </div>
+
+            <h2>职业画像</h2>
+            <p style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.4;">5年商业大数据AI产品经验，主导3个LLM应用从0到1落地。擅长定义RAG应用边界与效果评估体系，将AI技术转化为可量化的商业价值。服务万得、中金、财联社等10+机构，实现产品年收入超百万。</p>
+
+            <h2 style="margin: 1.5rem 0 0.5rem;">工作经历</h2>
+            
+            <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
+                <div class="timeline-period">2025.01 - 至今</div>
+                <div class="timeline-company">万得信息 · 产品经理</div>
+                <p style="margin: 0.25rem 0; font-size: 0.75rem;">中国领先的金融信息服务公司</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
+                    <li>规划「超级名单」智能数据平台，召回率72%→89%，准确率91%，功能使用率42%</li>
+                    <li>推行Cursor作为产研标准工具，提升效率40%；设计A/B测试框架驱动模型周迭代</li>
+                    <li>推动"五篇大文章"政策产品商业化，签约30+机构客户</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
+                <div class="timeline-period">2022.11 - 2024.12</div>
+                <div class="timeline-company">天仪基业 · 产品经理</div>
+                <p style="margin: 0.25rem 0; font-size: 0.75rem;">A轮商业大数据公司 · 服务60+企业/政府/金融机构</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
+                    <li>负责企业情报、进出口贸易、AI三大产品线，实现年营收百万级</li>
+                    <li>主导周庄宣传片AI生成项目，验证AIGC在营销场景的价值</li>
+                    <li>作为Scrum Master建立双周迭代机制，项目准时交付率从60%→95%</li>
+                </ul>
+            </div>
+
+            <h2 style="margin: 1.5rem 0 0.5rem;">项目经历</h2>
+            
+            <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
+                <div class="timeline-period">2024.03</div>
+                <div class="timeline-company">AI生成内容验证 · 天仪基业</div>
+                <p style="margin: 0.25rem 0; font-size: 0.75rem;">周庄宣传片AI生成项目</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
+                    <li>验证Midjourney+Runway内容生产可行性，输出技术可行性报告与成本效益分析</li>
+                </ul>
+            </div>
+
+            <h2 style="margin: 1.5rem 0 0.5rem;">教育背景</h2>
+            <div class="cv-grid" style="font-size: 0.75rem; margin: 0.5rem 0;">
+                <div class="cv-label">英国拉夫堡大学</div>
+                <div>金融与管理 硕士 | 2019.09 - 2020.12</div>
+                <div class="cv-label">宁波工程学院</div>
+                <div>国际经济与贸易 本科 | 2015.09 - 2019.06</div>
+            </div>
+
+            <h2 style="margin: 1.5rem 0 0.5rem;">认证资质</h2>
+            <p style="margin: 0.5rem 0; font-size: 0.75rem;">证券从业资格 | 基金从业资格 | 会计初级职称 | 英语CET-6</p>
+        </section>
+    </main>
+
+    <script>
+        // 宝可梦图标点击事件
+        function togglePokeball() {
+            const icon = document.getElementById('pokeballIcon');
+            icon.classList.add('clicked');
+            
+            // 切换图片
+            const currentSrc = icon.getAttribute('src');
+            if (currentSrc === 'poke.png' || currentSrc.endsWith('poke.png')) {
+                icon.src = 'torchic-pokemon.gif';
+            } else {
+                icon.src = 'poke.png';
+            }
+            
+            // 动画结束后移除class
+            setTimeout(() => {
+                icon.classList.remove('clicked');
+            }, 600);
+        }
+
+        // 页面切换逻辑
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(pageName)?.classList.add('active');
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showPage('${pageName}')"]`)?.classList.add('active');
+            
+            // 根据页面类型调整导航栏位置
+            const header = document.getElementById('header');
+            if (pageName === 'home') {
+                header.classList.remove('scrolling');
+            } else {
+                header.classList.add('scrolling');
+            }
+            
+            // 强制滚动到顶部
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                
+                // 如果是首页，隐藏滚动条
+                if (pageName === 'home') {
+                    setTimeout(() => {
+                        document.documentElement.classList.remove('scrolling');
+                    }, 500);
+                } else {
+                    document.documentElement.classList.add('scrolling');
+                }
+            }, 50);
+            
+            window.location.hash = pageName;
+        }
+
+        // 项目类型切换逻辑
+        function switchProjectType(type) {
+            // 切换标签页状态
+            document.querySelectorAll('.project-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            if (type === 'company') {
+                document.querySelector('.project-tab[onclick="switchProjectType(\'company\')"]')?.classList.add('active');
+                document.getElementById('company-projects')?.classList.remove('hidden');
+                document.getElementById('personal-projects')?.classList.add('hidden');
+            } else {
+                document.querySelector('.project-tab[onclick="switchProjectType(\'personal\')"]')?.classList.add('active');
+                document.getElementById('personal-projects')?.classList.remove('hidden');
+                document.getElementById('company-projects')?.classList.add('hidden');
+            }
+        }
+
+        // 下载简历功能 - 直接下载PDF
+        function downloadResume() {
+            // 创建PDF内容
+            const pdfContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Willow Chen - Resume</title>
+                    <style>
+                        body { 
+                            font-family: 'JetBrains Mono', ui-monospace, monospace;
+                            margin: 40px;
+                            color: #000;
+                            line-height: 1.4;
+                        }
+                        h1 { font-size: 24px; margin: 0 0 10px; }
+                        h2 { font-size: 16px; margin: 20px 0 8px; border-bottom: 1px solid #000; padding-bottom: 2px; }
+                        p { margin: 4px 0; font-size: 12px; }
+                        ul { margin: 4px 0; padding-left: 20px; font-size: 12px; }
+                        li { margin: 2px 0; }
+                        .contact { font-size: 11px; margin-bottom: 20px; }
+                        .timeline-item { margin: 8px 0; }
+                        .timeline-period { font-size: 11px; color: #666; }
+                        .timeline-company { font-weight: 600; font-size: 12px; }
+                        .cv-grid { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 12px; }
+                        .cv-label { font-weight: 600; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Willow Chen</h1>
+                    <div class="contact">
+                        AI产品经理 · 商业大数据方向<br>
+                        cttshig@email.com | 18888643061 | 上海（可远程）
+                    </div>
+
+                    <h2>职业画像</h2>
+                    <p>5年商业大数据AI产品经验，主导3个LLM应用从0到1落地。擅长定义RAG应用边界与效果评估体系，将AI技术转化为可量化的商业价值。服务万得、中金、财联社等10+机构，实现产品年收入超百万。</p>
+
+                    <h2>工作经历</h2>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-period">2025.01 - 至今</div>
+                        <div class="timeline-company">万得信息 · 产品经理</div>
+                        <p>中国领先的金融信息服务公司</p>
+                        <ul>
+                            <li>规划「超级名单」智能数据平台，召回率72%→89%，准确率91%，功能使用率42%</li>
+                            <li>推行Cursor作为产研标准工具，提升效率40%；设计A/B测试框架驱动模型周迭代</li>
+                            <li>推动"五篇大文章"政策产品商业化，签约30+机构客户</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-period">2022.11 - 2024.12</div>
+                        <div class="timeline-company">天仪基业 · 产品经理</div>
+                        <p>A轮商业大数据公司 · 服务60+企业/政府/金融机构</p>
+                        <ul>
+                            <li>负责企业情报、进出口贸易、AI三大产品线，实现年营收百万级</li>
+                            <li>主导周庄宣传片AI生成项目，验证AIGC在营销场景的价值</li>
+                            <li>作为Scrum Master建立双周迭代机制，项目准时交付率从60%→95%</li>
+                        </ul>
+                    </div>
+
+                    <h2>项目经历</h2>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-period">2024.03</div>
+                        <div class="timeline-company">AI生成内容验证 · 天仪基业</div>
+                        <p>周庄宣传片AI生成项目</p>
+                        <ul>
+                            <li>验证Midjourney+Runway内容生产可行性，输出技术可行性报告与成本效益分析</li>
+                        </ul>
+                    </div>
+
+                    <h2>教育背景</h2>
+                    <div class="cv-grid">
+                        <div class="cv-label">英国拉夫堡大学</div>
+                        <div>金融与管理 硕士 | 2019.09 - 2020.12</div>
+                        <div class="cv-label">宁波工程学院</div>
+                        <div>国际经济与贸易 本科 | 2015.09 - 2019.06</div>
+                    </div>
+
+                    <h2>认证资质</h2>
+                    <p>证券从业资格 | 基金从业资格 | 会计初级职称 | 英语CET-6</p>
+                </body>
+                </html>
+            `;
+
+            // 创建Blob对象
+            const blob = new Blob([pdfContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            // 创建下载链接
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Willow_Chen_Resume.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // 清理URL对象
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+
+        // 根据URL hash初始化页面
+        window.addEventListener('DOMContentLoaded', () => {
+            const page = window.location.hash.slice(1) || 'home';
+            const header = document.getElementById('header');
+            
+            // 初始化导航栏状态
+            if (page === 'home') {
+                header.classList.remove('scrolling');
+            } else {
+                header.classList.add('scrolling');
+            }
+            
+            showPage(page);
+        });
+
+        // 滚动时显示滚动条
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            document.documentElement.classList.add('scrolling');
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                // 如果滚动到顶部且是首页，隐藏滚动条
+                if (window.pageYOffset === 0 && document.getElementById('home')?.classList.contains('active')) {
+                    document.documentElement.classList.remove('scrolling');
+                }
+            }, 1000);
+        });
+
+    </script>
+</body>
+</html>
