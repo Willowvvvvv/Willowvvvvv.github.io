@@ -404,6 +404,19 @@
             .capability-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* 简历页面头部布局调整 */
+            #cv > div:first-child {
+                flex-direction: column !important;
+                gap: 1rem;
+                align-items: flex-start !important;
+            }
+
+            #cv > div:first-child > a {
+                white-space: nowrap;
+                align-self: flex-start;
+                margin-top: 0.5rem;
+            }
         }
 
         @media (min-width: 769px) {
@@ -637,6 +650,13 @@
                         <li>支持快速生成交互原型和流程图</li>
                         <li>集成AI能力，自动优化原型设计方案</li>
                     </ul>
+
+                    <div class="media-container">
+                        <video controls>
+                            <source src="protoflow.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
                 </article>
 
                 <article class="project-item" data-type="personal">
