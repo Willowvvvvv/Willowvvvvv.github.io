@@ -250,14 +250,23 @@
             border-bottom: 1px solid var(--gray);
         }
 
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
         .timeline-item:last-child {
             border-bottom: none;
         }
 
         .timeline-period {
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             color: #666;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0;
+            white-space: nowrap;
+            text-align: right;
         }
 
         .timeline-company {
@@ -312,7 +321,8 @@
             border-radius: 4px;
         }
 
-        .media-container video {
+        .media-container video,
+        .media-container img {
             width: 100%;
             max-width: 800px;
             height: auto;
@@ -430,8 +440,7 @@
             <div class="nav-left">
                 <ul class="nav-links" id="navLinks">
                     <li><a onclick="showPage('home')" class="active">我</a></li>
-                    <li><a onclick="showPage('profile')">职业画像</a></li>
-                    <li><a onclick="showPage('projects')">项目经历</a></li>
+                    <li><a onclick="showPage('projects')">项目展示</a></li>
                     <li><a onclick="showPage('cv')">简历</a></li>
                 </ul>
             </div>
@@ -450,93 +459,17 @@
                 <div class="subtitle">AI产品经理 · 商业大数据方向</div>
                 
                 <p class="tagline">
-                    5年商业大数据AI产品经验，主导3个LLM应用从0到1落地。
-                    <br>服务万得、中金、财联社等10+机构，实现产品年收入超百万。
+                    4年AI与商业大数据B端产品经验，主导AI智能拓客与企业情报平台从0-1落地。
+                    <br>擅长Agent流程拆解、搜索/推荐策略与效果评估。
                 </p>
-
-                <p>目前专注于AI产品经理岗位，致力于将AI技术转化为可量化的商业价值。</p>
 
                 <div class="badges">
                     <span class="badge">Cursor重度用户</span>
-                    <span class="badge">RAG架构师</span>
-                    <span class="badge">召回率89%</span>
-                    <span class="badge">准确率91%</span>
+                    <span class="badge">AI产品经理</span>
+                    <span class="badge">策略与评估</span>
                     <span class="badge">A/B测试</span>
                     <span class="badge">Prompt工程</span>
                     <span class="badge">数据驱动</span>
-                </div>
-
-                <p style="margin-top: 1rem;">
-                    <a href="mailto:willow.chen@email.com">cttshiwillow@gmail.com</a> 
-                </p>
-            </div>
-        </section>
-
-        <!-- ========== 职业画像 ========== -->
-        <section id="profile" class="page">
-            <div style="margin-top: 2rem; margin-bottom: 1rem;"></div>
-            <p style="font-size: 1rem; margin: 1rem 0;">
-                将AI技术转化为可量化的商业价值<br>
-                这是我的唯一目标
-            </p>
-
-            <h2>核心能力</h2>
-            <div class="capability-grid">
-                <div class="capability-item">
-                    <strong>🤖 AI产品能力</strong>
-                    <ul>
-                        <li>LLM场景化落地与Prompt工程</li>
-                        <li>RAG应用边界定义与效果评估</li>
-                        <li>Agent流程编排与向量检索策略</li>
-                        <li>AI-native交互设计范式</li>
-                    </ul>
-                </div>
-                <div class="capability-item">
-                    <strong>📊 数据驱动能力</strong>
-                    <ul>
-                        <li>指标体系设计与A/B测试</li>
-                        <li>SQL数据分析与埋点策略</li>
-                        <li>准确率/召回率业务调优</li>
-                        <li>ROI导向的迭代决策</li>
-                    </ul>
-                </div>
-                <div class="capability-item">
-                    <strong>💼 商业场景理解</strong>
-                    <ul>
-                        <li>投研风控与企业情报分析</li>
-                        <li>跨境贸易撮合与政府招商</li>
-                        <li>B端客户决策链洞察</li>
-                        <li>SaaS商业化与定价策略</li>
-                    </ul>
-                </div>
-                <div class="capability-item">
-                    <strong>🛠️ 技术工具栈</strong>
-                    <ul>
-                        <li>Cursor重度用户（产研全流程）</li>
-                        <li>Coze快速Demo验证</li>
-                        <li>Axure/Figma高保真原型</li>
-                        <li>Python/SQL数据分析</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2>关键指标</h2>
-            <div class="capability-grid">
-                <div class="project-item">
-                    <div class="project-title">42%</div>
-                    <p>超级名单AI功能使用率</p>
-                </div>
-                <div class="project-item">
-                    <div class="project-title">91%</div>
-                    <p>LLM回答准确率</p>
-                </div>
-                <div class="project-item">
-                    <div class="project-title">89%</div>
-                    <p>召回率提升17pp</p>
-                </div>
-                <div class="project-item">
-                    <div class="project-title">30min → 1min</div>
-                    <p>分析师效率提升</p>
                 </div>
             </div>
         </section>
@@ -546,37 +479,32 @@
             <div style="margin-top: 2rem; margin-bottom: 1rem;"></div>
 
             <div class="project-tabs">
-                <button class="project-tab active" onclick="switchProjectType('company')">公司项目</button>
+                <button class="project-tab active" onclick="switchProjectType('company')">公司核心项目</button>
                 <button class="project-tab" onclick="switchProjectType('personal')">个人项目</button>
             </div>
 
             <!-- 公司项目列表 -->
             <div id="company-projects" class="project-list">
                 <article class="project-item" data-type="company">
-                    <h3 class="project-title">金融"五篇大文章" · 万得信息</h3>
-                    <div class="project-meta">2025.05 - 2025.07 · 满足金融机构合规报送需求</div>
-                    
-                    <h3>核心职责：</h3>
-                    <ul>
-                        <li>主导企业库批量查询架构升级，签约30+机构客户</li>
-                        <li>推动"五篇大文章"政策产品商业化</li>
-                    </ul>
-                </article>
-
-                <article class="project-item" data-type="company">
-                    <h3 class="project-title">超级名单 · 万得信息</h3>
-                    <div class="project-meta">2025.01 - 至今 · 商业智能数据平台 · 对话式查询 + 表格AI分析</div>
+                    <h3 class="project-title">超级名单 · 万得</h3>
+                    <div class="project-meta">2025.01 - 至今 · AI营销拓客</div>
                     <p style="margin: 0.5rem 0; font-size: 0.85rem;">
                         <a href="https://gel.wind.com.cn/web/windLogin.html" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">访问产品 →</a>
                     </p>
                     
+                    <p style="margin: 0.5rem 0; font-size: 0.875rem;"><strong>产品定义</strong>：统一"对话式查询"与"表格AI分析"，支持自然语言找企业、表格中AI生成分析列</p>
+                    
                     <h3>核心职责：</h3>
                     <ul>
-                        <li>通过20+客户访谈识别三大核心场景，设计置信度阈值与拒答策略，平衡准确性与用户体验</li>
-                        <li>定义知识库分层策略与混合检索方案，召回率提升17pp至89%；搭建角色Prompt模板库，回答准确率91%</li>
-                        <li>设计"AI生成列"功能，分析师手工操作从30分钟→1分钟；功能使用率占整体查询量42%，3家机构客户作为核心工具</li>
-                        <li>自建A/B测试框架，20+埋点驱动模型周迭代</li>
+                        <li><strong>场景抽象</strong>：基于20+家机构客户访谈，抽象"找客户""找供应商""找竞对""找渠道"四类高频获客场景，沉淀标准化查询流程</li>
+                        <li><strong>AI查询能力设计（大模型+检索）</strong>：协同算法和数据团队拆解"一句话找企业"能力，设计自然语言意图识别与实体抽取流程，将地域、产业链、政策标签、产品等隐含条件结构化为统一特征体系，支撑AI自然语言查询</li>
+                        <li><strong>Agent流程与打分策略</strong>：负责设计"超级名单 Agent"多渠道拓客流程与打分规则，定义特征词匹配、招投标/招聘数据融合及多渠道加权规则，并形成可复用的产品/算法文档</li>
+                        <li><strong>交互与话术优化</strong>：结合销售、投研同事的真实提问场景，持续打磨AI问答话术与结果展示结构，提升结果可读性与决策效率</li>
+                        <li><strong>效率提升</strong>：设计"AI生成列"交互，通过Prompt模板与上下文管理将大模型输出结构化为可直接入库的字段值，将分析师常用计算抽象为模板，单次企业筛选与打标时间从约30分钟降至1分钟</li>
+                        <li><strong>效果评估体系</strong>：搭建以F1、召回率、准确率为核心的统一评估体系，与数据同事共同制定埋点与指标口径，设计AI生成评估报表，实现一键产出效果分析并支撑策略、模型与前端交互的周迭代</li>
                     </ul>
+                    
+                    <p style="margin: 0.5rem 0; font-size: 0.875rem;"><strong>业务成果</strong>：内测阶段月活用户达数百人，AI查询日均调用数十次，在企业库功能使用中位居前列</p>
 
                     <div class="video-grid">
                         <div class="media-container">
@@ -595,46 +523,42 @@
                 </article>
 
                 <article class="project-item" data-type="company">
-                    <h3 class="project-title">AI生成内容验证 · 天仪基业</h3>
-                    <div class="project-meta">2024.03 · 周庄宣传片AI生成</div>
-                    
-                    <h3>核心职责：</h3>
-                    <ul>
-                        <li>验证Midjourney+Runway内容生产可行性，探索AIGC在营销场景的价值</li>
-                        <li>输出技术可行性报告与成本效益分析，为后续AIGC产品化提供决策依据</li>
-                    </ul>
-                </article>
-
-                <article class="project-item" data-type="company">
                     <h3 class="project-title">APEXDATA商业情报平台 · 天仪基业</h3>
-                    <div class="project-meta">2022.11 - 2024.12 · 企业级情报SaaS · 服务60+企业/10000+个人用户</div>
+                    <div class="project-meta">2022.11 - 2024.12 · 企业级情报SaaS</div>
+                    
+                    <p style="margin: 0.5rem 0; font-size: 0.875rem;"><strong>产品定位</strong>：整合工商、舆情、投融资及海关数据，解决投资机构"找项目难、尽调贵、风控滞后"痛点，同时帮助外贸企业与政府招商部门洞察市场</p>
                     
                     <h3>核心职责：</h3>
                     <ul>
-                        <li>设计12类异构数据源整合方案，建立企业ID映射体系，数据覆盖率98%</li>
-                        <li>搭建尽调报告自动生成功能，聚合9大维度数据，尽调成本从数万元→数千元</li>
-                        <li>设计经营异常、股权变动、舆情危机三级预警机制，连续两年为财联社"科创好公司"评选提供评分</li>
-                        <li>2023年11-12月主导财联社「科创好公司」评选项目，从经营、资金、科创三大维度搭建企业科创能力评估模型，完成1000+企业评估验证</li>
-                        <li>制定SaaS订阅+API+私有化三层定价，主导标杆客户交付</li>
+                        <li><strong>平台架构规划</strong>：牵头规划APEXDATA商业情报平台整体架构，明确"企业尽调+营销拓客+招商决策"三大核心场景，设计跨端（Web/后台/小程序/H5）的产品形态与数据流转</li>
+                        <li><strong>企业画像与风险视图</strong>：结合工商、舆情、投融资、海关等多源数据，设计企业画像与风险视图，支持投前尽调、投后跟踪与区域招商筛选</li>
+                        <li><strong>尽调报告自动化</strong>：设计企业尽调与风险评价报告生成流程，抽象金融机构KYC需求与另类数据使用方式，降低项目尽调的人力投入</li>
+                        <li><strong>招商分析产品化</strong>：基于海关数据与产业链信息，协同政府客户搭建"产业大脑/招商雷达"类分析视图，输出目标企业清单与区域产业分析</li>
+                        <li><strong>解决方案</strong>：与商务团队配合打磨标准解决方案与交付模板，支持财联社等合作方的产品化集成与项目落地</li>
+                        <li><strong>路演与需求反馈</strong>：面向券商、银行及地方政府招商等客户进行方案路演与产品演示，收集一线反馈并反向推动产品迭代</li>
                     </ul>
+                    
+                    <p style="margin: 0.5rem 0; font-size: 0.875rem;"><strong>业务成果</strong>：服务企业客户60+，连续两年为财联社"科创好公司"评选提供数据支持；与中金、财联社、部分运营商及地方政府招商机构等建立合作</p>
 
                     <div class="media-container">
-                        <div class="media-placeholder">
-                            🎬 尽调报告自动生成Demo GIF<br>
-                            <span style="font-size: 0.75rem; opacity: 0.7;">替换为实际GIF</span>
-                        </div>
+                        <img src="apex移动端.png" alt="APEXDATA移动端界面">
                     </div>
                 </article>
 
                 <article class="project-item" data-type="company">
                     <h3 class="project-title">平安租赁SaaS平台 · 中电金信</h3>
-                    <div class="project-meta">2021.12 - 2022.11 · 设备租赁撮合平台 · 服务1000+制造企业</div>
+                    <div class="project-meta">2021.12 - 2022.11 · 订单/设备撮合平台</div>
+                    
+                    <p style="margin: 0.5rem 0; font-size: 0.875rem;"><strong>产品定位</strong>：连接制造企业、平安租赁与设备供应商的设备租赁撮合平台，覆盖线上获客、合同签署与资产管理全流程</p>
                     
                     <h3>核心职责：</h3>
                     <ul>
-                        <li>负责小程序/APP/后台/数字孪生工厂四端产品，实现全流程数字化</li>
-                        <li>策划10周年"制造互联-线上博览会"，直播PV 16W+，GMV超5000万</li>
+                        <li><strong>产品设计</strong>：负责小程序/APP/后台/数字孪生工厂四端产品全栈设计，梳理设备租赁业务流程与核心指标，服务1000+制造企业</li>
+                        <li><strong>数据模型设计</strong>：协同前端、后端与三维可视化团队，定义设备、订单、客户三大基础数据模型及关键交互路径，提升多端体验一致性</li>
+                        <li><strong>活动策划</strong>：联合市场与运营团队规划活动玩法与转化路径，确保产品功能承接营销与招商需求</li>
                     </ul>
+                    
+                    <p style="margin: 0.5rem 0; font-size: 0.875rem;"><strong>业务成果</strong>：策划10周年"制造互联-线上博览会"，直播PV 16W+，促成设备成交300+笔，GMV超5000万</p>
                 </article>
             </div>
 
@@ -697,12 +621,7 @@
             <div style="display: flex; justify-content: space-between; align-items: baseline;">
                 <div>
                     <h1>Willow Chen</h1>
-                    <p>AI产品经理 · 商业大数据方向</p>
-                    <p>
-                        <a href="mailto:cttshiwillow@gmail.com">cttshiwillow@gmail.com</a> | 
-                        <a href="tel:18888643061">1888XXXXXX061</a> | 
-                        上海（可远程）
-                    </p>
+                    <p>求职意向：AI产品经理 | 上海（可远程）</p>
                 </div>
                 <a href="#" onclick="downloadResume()" style="
                     color: var(--accent);
@@ -715,113 +634,124 @@
                 " onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">下载简历</a>
             </div>
 
-            <h2>职业画像</h2>
-            <p style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.4;">5年商业大数据AI产品经验，主导3个LLM应用从0到1落地。擅长定义RAG应用边界与效果评估体系，将AI技术转化为可量化的商业价值。服务万得、中金、财联社等10+机构，实现产品年收入超百万。</p>
+            <h2>个人优势</h2>
+            <p style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.4;">4年AI与商业大数据B端产品经验，主导AI智能拓客与企业情报平台从0-1落地，擅长Agent流程拆解、搜索/推荐策略与效果评估；业余自驱搭建protoflow插件、公众号AI助手及产品经理全流程等工具AI产品，结合金融学术背景及中金、财联社和政府招商项目实践，能够以产品视角快速理解复杂决策场景并推动落地。</p>
+
+            <h2>核心能力</h2>
+            <div style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.4;">
+                <p style="margin: 0.5rem 0;"><strong>AI应用设计</strong>：LLM场景化落地、RAG应用边界定义、Prompt工程调优、Agent流程编排、向量检索策略制定、模型效果评估框架搭建</p>
+                <p style="margin: 0.5rem 0;"><strong>策略与评估</strong>：搜索/推荐策略、多渠道加权打分、F1/召回率/准确率评估、A/B测试、埋点与指标体系、SQL数据分析</p>
+                <p style="margin: 0.5rem 0;"><strong>商业场景</strong>：企业情报、智能拓客、投研风控支持、B端客户决策链洞察</p>
+                <p style="margin: 0.5rem 0;"><strong>工具链</strong>：Cursor重度用户（需求→原型→PRD→评估全链路）、Coze/大模型API用于快速验证Agent流程与交互、Axure高保真原型</p>
+            </div>
 
             <h2 style="margin: 1.5rem 0 0.5rem;">工作经历</h2>
             
             <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2025.01 - 至今</div>
-                <div class="timeline-company">万得信息 · 产品经理</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">中国领先的金融信息服务公司</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>规划「超级名单」智能数据平台，召回率72%→89%，准确率91%，功能使用率42%</li>
-                    <li>推行Cursor作为产研标准工具，提升效率40%；设计A/B测试框架驱动模型周迭代</li>
-                    <li>推动"五篇大文章"政策产品商业化，签约30+机构客户</li>
+                <div class="timeline-header">
+                    <div class="timeline-company">万得信息技术股份有限公司 | 产品经理</div>
+                    <div class="timeline-period">2025.01 - 至今</div>
+                </div>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem;">金融信息服务龙头</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.3;">
+                    <li>负责规划"超级名单"AI营销拓客平台，整合对话式查询与表格AI分析，定义商业知识库构建标准</li>
+                    <li>负责全球企业库核心模块（企业数据浏览器、批量导出、资质大全、财务、年报、人物等）产品规划与迭代，参与"金融五篇大文章"项目专题上线（支撑30+机构客户业务使用），并结合SEO需求优化企业库官网与H5落地页结构</li>
+                    <li>推行Cursor作为产研标准工具，提升原型与文档效率约40%</li>
+                    <li>负责企业库与超级名单相关的内部/外部培训，组织销售与投研团队产品Workshop，参与重要机构客户会议与方案对接，提升产品认知和落地效率</li>
                 </ul>
             </div>
 
             <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2022.11 - 2024.12</div>
-                <div class="timeline-company">天仪基业 · 产品经理</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">A轮商业大数据公司 · 服务60+企业/政府/金融机构</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>负责企业情报、进出口贸易、ESG三大产品线，搭建统一数据中台，实现年营收百万级</li>
-                    <li>主导周庄宣传片AI生成项目，验证AIGC在营销场景的价值</li>
-                    <li>作为Scrum Master建立双周迭代机制，项目准时交付率从60%→95%</li>
+                <div class="timeline-header">
+                    <div class="timeline-company">天仪基业（上海）智能科技有限公司 | 产品经理</div>
+                    <div class="timeline-period">2022.11 - 2024.12</div>
+                </div>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem;">A轮商业大数据公司</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.3;">
+                    <li>负责企业情报、进出口贸易、ESG三大产品线，实现年营收超百万</li>
+                    <li>作为Scrum Master建立双周迭代机制，将项目准时交付率从60%提升至95%</li>
+                    <li>负责周庄宣传片AI生成项目，基于Midjourney+Runway完成整支AI宣传片交付，将视频生产周期从数周压缩至数日</li>
+                    <li>协同市场与销售撰写产品软文、案例文章及新闻稿，维护公司官网与宣传物料，对接外部供应商与渠道伙伴，支持路演及招投标汇报</li>
                 </ul>
             </div>
 
             <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2021.08 - 2022.11</div>
-                <div class="timeline-company">中电金信 · 产品经理</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">金融IT服务商</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>主导平安租赁SaaS平台（小程序/APP/后台/数字孪生），服务1000+制造企业，策划线上博览会实现GMV超5000万</li>
+                <div class="timeline-header">
+                    <div class="timeline-company">中电金信（上海）软件有限公司 | 产品经理</div>
+                    <div class="timeline-period">2021.08 - 2022.11</div>
+                </div>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem;">金融IT服务商</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.3;">
+                    <li>负责平安租赁设备租赁平台全栈设计（小程序/APP/后台/数字孪生），服务1000+制造企业，策划线上博览会实现GMV超5000万</li>
                     <li>协助撰写银行押品管理、统一授信等5+个解决方案标书</li>
                 </ul>
             </div>
 
-            <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2020.12 - 2021.08</div>
-                <div class="timeline-company">贵州交通小额贷款有限公司 · 管培生</div>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>参与贵州交建集团30亿授信评估，从企业信用、关联关系等维度进行风险分析，建立金融风控底层认知</li>
-                    <li>负责商票通产品结算与再贴现票据融资，理解产业链金融数据流转逻辑</li>
-                    <li>使用用友软件编制黔通智联上市审计财务资料，掌握企业财务数据规范与治理要点</li>
-                </ul>
-            </div>
-
-            <h2 style="margin: 1.5rem 0 0.5rem;">项目经历</h2>
+            <h2 style="margin: 1.5rem 0 0.5rem;">核心项目经历</h2>
+            <p style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.4;">负责/深度参与3个核心项目：AI智能获客"超级名单"、商业情报SaaS"APEXDATA"、设备租赁SaaS"平安租赁"。</p>
             
             <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2025.01 - 至今</div>
-                <div class="timeline-company">超级名单 · 万得信息</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">商业智能数据平台 · 对话式查询 + 表格AI分析</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>通过20+客户访谈识别三大核心场景，设计置信度阈值与拒答策略，平衡准确性与用户体验</li>
-                    <li>定义知识库分层策略与混合检索方案，召回率提升17pp至89%；搭建角色Prompt模板库，回答准确率91%</li>
-                    <li>设计"AI生成列"功能，分析师手工操作从30分钟→1分钟；功能使用率占整体查询量42%，3家机构客户作为核心工具</li>
-                    <li>自建A/B测试框架，20+埋点驱动模型周迭代</li>
+                <div class="timeline-header">
+                    <div class="timeline-company">超级名单 · 万得</div>
+                    <div class="timeline-period">2025.01 - 至今</div>
+                </div>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem;">AI营销拓客</p>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">产品定义</p>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem; line-height: 1.3;">统一"对话式查询"与"表格AI分析"，支持自然语言找企业、表格中AI生成分析列</p>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">核心职责</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.3;">
+                    <li><strong>场景抽象</strong>：基于20+家机构客户访谈，抽象"找客户""找供应商""找竞对""找渠道"四类高频获客场景，沉淀标准化查询流程</li>
+                    <li><strong>AI查询能力设计（大模型+检索）</strong>：协同算法和数据团队拆解"一句话找企业"能力，设计自然语言意图识别与实体抽取流程，将地域、产业链、政策标签、产品等隐含条件结构化为统一特征体系，支撑AI自然语言查询</li>
+                    <li><strong>Agent流程与打分策略</strong>：负责设计"超级名单 Agent"多渠道拓客流程与打分规则，定义特征词匹配、招投标/招聘数据融合及多渠道加权规则，并形成可复用的产品/算法文档</li>
+                    <li><strong>交互与话术优化</strong>：结合销售、投研同事的真实提问场景，持续打磨AI问答话术与结果展示结构，提升结果可读性与决策效率</li>
+                    <li><strong>效率提升</strong>：设计"AI生成列"交互，通过Prompt模板与上下文管理将大模型输出结构化为可直接入库的字段值，将分析师常用计算抽象为模板，单次企业筛选与打标时间从约30分钟降至1分钟</li>
+                    <li><strong>效果评估体系</strong>：搭建以F1、召回率、准确率为核心的统一评估体系，与数据同事共同制定埋点与指标口径，设计AI生成评估报表，实现一键产出效果分析并支撑策略、模型与前端交互的周迭代</li>
                 </ul>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">业务成果</p>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem; line-height: 1.3;">内测阶段月活用户达数百人，AI查询日均调用数十次，在企业库功能使用中位居前列</p>
             </div>
 
             <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2022.11 - 2024.12</div>
-                <div class="timeline-company">APEXDATA商业情报平台 · 天仪基业</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">企业级情报SaaS · 服务60+企业/10000+个人用户</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>设计12类异构数据源整合方案，建立企业ID映射体系，数据覆盖率98%</li>
-                    <li>搭建尽调报告自动生成功能，聚合9大维度数据，尽调成本从数万元→数千元</li>
-                    <li>设计经营异常、股权变动、舆情危机三级预警机制，连续两年为财联社"科创好公司"评选提供评分</li>
-                    <li>2023年11-12月主导财联社「科创好公司」评选项目，从经营、资金、科创三大维度搭建企业科创能力评估模型，完成1000+企业评估验证</li>
-                    <li>制定SaaS订阅+API+私有化三层定价，主导标杆客户交付</li>
+                <div class="timeline-header">
+                    <div class="timeline-company">APEXDATA商业情报平台 · 天仪基业</div>
+                    <div class="timeline-period">2022.11 - 2024.12</div>
+                </div>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem;">企业级情报SaaS</p>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">产品定位</p>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem; line-height: 1.3;">整合工商、舆情、投融资及海关数据，解决投资机构"找项目难、尽调贵、风控滞后"痛点，同时帮助外贸企业与政府招商部门洞察市场</p>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">核心职责</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.3;">
+                    <li><strong>平台架构规划</strong>：牵头规划APEXDATA商业情报平台整体架构，明确"企业尽调+营销拓客+招商决策"三大核心场景，设计跨端（Web/后台/小程序/H5）的产品形态与数据流转</li>
+                    <li><strong>企业画像与风险视图</strong>：结合工商、舆情、投融资、海关等多源数据，设计企业画像与风险视图，支持投前尽调、投后跟踪与区域招商筛选</li>
+                    <li><strong>尽调报告自动化</strong>：设计企业尽调与风险评价报告生成流程，抽象金融机构KYC需求与另类数据使用方式，降低项目尽调的人力投入</li>
+                    <li><strong>招商分析产品化</strong>：基于海关数据与产业链信息，协同政府客户搭建"产业大脑/招商雷达"类分析视图，输出目标企业清单与区域产业分析</li>
+                    <li><strong>解决方案</strong>：与商务团队配合打磨标准解决方案与交付模板，支持财联社等合作方的产品化集成与项目落地</li>
+                    <li><strong>路演与需求反馈</strong>：面向券商、银行及地方政府招商等客户进行方案路演与产品演示，收集一线反馈并反向推动产品迭代</li>
                 </ul>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">业务成果</p>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem; line-height: 1.3;">服务企业客户60+，连续两年为财联社"科创好公司"评选提供数据支持；与中金、财联社、部分运营商及地方政府招商机构等建立合作</p>
             </div>
 
             <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2023.10 - 2024.12</div>
-                <div class="timeline-company">贸易瞭望塔 · 天仪基业</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">跨境贸易分析平台 · 签约3省政府/5家券商</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>设计海关提单多维分析模型，实现供应链分析与竞对监控</li>
-                    <li>集成LinkedIn/Google渠道，关键人挖掘准确率85%，创造商业对话机会</li>
-                    <li>中金公司等5家券商纳入核心投研工具，上线半年ARR超80万</li>
-                    <li>制定海关数据脱敏与权限隔离方案，通过合规审计</li>
+                <div class="timeline-header">
+                    <div class="timeline-company">平安租赁SaaS平台 · 中电金信</div>
+                    <div class="timeline-period">2021.12 - 2022.11</div>
+                </div>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem;">订单/设备撮合平台</p>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">产品定位</p>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem; line-height: 1.3;">连接制造企业、平安租赁与设备供应商的设备租赁撮合平台，覆盖线上获客、合同签署与资产管理全流程</p>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">核心职责</p>
+                <ul style="margin: 0.5rem 0; font-size: 0.875rem; line-height: 1.3;">
+                    <li><strong>产品设计</strong>：负责小程序/APP/后台/数字孪生工厂四端产品全栈设计，梳理设备租赁业务流程与核心指标，服务1000+制造企业</li>
+                    <li><strong>数据模型设计</strong>：协同前端、后端与三维可视化团队，定义设备、订单、客户三大基础数据模型及关键交互路径，提升多端体验一致性</li>
+                    <li><strong>活动策划</strong>：联合市场与运营团队规划活动玩法与转化路径，确保产品功能承接营销与招商需求</li>
                 </ul>
-            </div>
-
-            <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2021.12 - 2022.11</div>
-                <div class="timeline-company">平安租赁SaaS平台 · 中电金信</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">设备租赁撮合平台 · 服务1000+制造企业</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>负责小程序/APP/后台/数字孪生工厂四端产品，实现全流程数字化</li>
-                    <li>策划10周年"制造互联-线上博览会"，直播PV 16W+，GMV超5000万</li>
-                </ul>
-            </div>
-
-            <div class="timeline-item" style="margin: 1rem 0; padding: 0.5rem 0;">
-                <div class="timeline-period">2024.03</div>
-                <div class="timeline-company">AI生成内容验证 · 天仪基业</div>
-                <p style="margin: 0.25rem 0; font-size: 0.75rem;">周庄宣传片AI生成项目</p>
-                <ul style="margin: 0.5rem 0; font-size: 0.75rem; line-height: 1.3;">
-                    <li>验证Midjourney+Runway内容生产可行性，输出技术可行性报告与成本效益分析</li>
-                </ul>
+                <p style="margin: 0.5rem 0; font-size: 0.875rem; font-weight: 600;">业务成果</p>
+                <p style="margin: 0.25rem 0; font-size: 0.875rem; line-height: 1.3;">策划10周年"制造互联-线上博览会"，直播PV 16W+，促成设备成交300+笔，GMV超5000万</p>
             </div>
 
             <h2 style="margin: 1.5rem 0 0.5rem;">教育背景</h2>
-            <div class="cv-grid" style="font-size: 0.75rem; margin: 0.5rem 0;">
+            <div class="cv-grid" style="font-size: 0.875rem; margin: 0.5rem 0;">
                 <div class="cv-label">英国拉夫堡大学</div>
                 <div>金融与管理 硕士 | 2019.09 - 2020.12</div>
                 <div class="cv-label">宁波工程学院</div>
@@ -829,7 +759,7 @@
             </div>
 
             <h2 style="margin: 1.5rem 0 0.5rem;">认证资质</h2>
-            <p style="margin: 0.5rem 0; font-size: 0.75rem;">证券从业资格 | 基金从业资格 | 会计初级职称 | 英语CET-6</p>
+            <p style="margin: 0.5rem 0; font-size: 0.875rem;">证券从业资格 | 基金从业资格 | 会计初级职称 | 英语CET-6</p>
         </section>
     </main>
 
@@ -919,7 +849,7 @@
                 <html>
                 <head>
                     <meta charset="UTF-8">
-                    <title>Willow Chen - Resume</title>
+                    <title>陈婷婷 - 简历</title>
                     <style>
                         body { 
                             font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -941,115 +871,106 @@
                     </style>
                 </head>
                 <body>
-                    <h1>Willow Chen</h1>
+                    <h1>陈婷婷</h1>
                     <div class="contact">
-                        AI产品经理 · 商业大数据方向<br>
+                        求职意向：AI产品经理（LLM/Agent·B端业务方向）<br>
                         cttshiwillow@gmail.com | 18888643061 | 上海（可远程）
                     </div>
 
-                    <h2>职业画像</h2>
-                    <p>5年商业大数据AI产品经验，主导3个LLM应用从0到1落地。擅长定义RAG应用边界与效果评估体系，将AI技术转化为可量化的商业价值。服务万得、中金、财联社等10+机构，实现产品年收入超百万。</p>
+                    <h2>个人优势</h2>
+                    <p>4年AI与商业大数据B端产品经验，主导AI智能拓客与企业情报平台从0-1落地，擅长Agent流程拆解、搜索/推荐策略与效果评估，将大模型与数据能力转化为可量化业务指标；业余自驱搭建protoflow插件、公众号AI助手及产品经理全流程等工具AI产品，结合金融学术背景及中金、财联社和政府招商项目实践，能够以产品视角快速理解复杂决策场景并推动落地。</p>
+
+                    <h2>核心能力</h2>
+                    <p><strong>AI应用设计</strong>：LLM场景化落地、RAG应用边界定义、Prompt工程调优、Agent流程编排、向量检索策略制定、模型效果评估框架搭建</p>
+                    <p><strong>策略与评估</strong>：搜索/推荐策略、多渠道加权打分、F1/召回率/准确率评估、A/B测试、埋点与指标体系、SQL数据分析</p>
+                    <p><strong>商业场景</strong>：企业情报、智能拓客、投研风控支持、B端客户决策链洞察</p>
+                    <p><strong>工具链</strong>：Cursor重度用户（需求→原型→PRD→评估全链路）、Coze/大模型API用于快速验证Agent流程与交互、Axure高保真原型</p>
 
                     <h2>工作经历</h2>
                     
                     <div class="timeline-item">
                         <div class="timeline-period">2025.01 - 至今</div>
-                        <div class="timeline-company">万得信息 · 产品经理</div>
-                        <p>中国领先的金融信息服务公司</p>
+                        <div class="timeline-company">万得信息技术股份有限公司 | 产品经理</div>
+                        <p>金融信息服务龙头</p>
                         <ul>
-                            <li>规划「超级名单」智能数据平台，召回率72%→89%，准确率91%，功能使用率42%</li>
-                            <li>推行Cursor作为产研标准工具，提升效率40%；设计A/B测试框架驱动模型周迭代</li>
-                            <li>推动"五篇大文章"政策产品商业化，签约30+机构客户</li>
+                            <li>负责规划"超级名单"AI营销拓客平台，整合对话式查询与表格AI分析，定义商业知识库构建标准</li>
+                            <li>负责全球企业库核心模块（企业数据浏览器、批量导出、资质大全、财务、年报、人物等）产品规划与迭代，参与"金融五篇大文章"项目专题上线（支撑30+机构客户业务使用），并结合SEO需求优化企业库官网与H5落地页结构</li>
+                            <li>推行Cursor作为产研标准工具，提升原型与文档效率约40%</li>
+                            <li>负责企业库与超级名单相关的内部/外部培训，组织销售与投研团队产品Workshop，参与重要机构客户会议与方案对接，提升产品认知和落地效率</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-period">2022.11 - 2024.12</div>
-                        <div class="timeline-company">天仪基业 · 产品经理</div>
-                        <p>A轮商业大数据公司 · 服务60+企业/政府/金融机构</p>
+                        <div class="timeline-company">天仪基业（上海）智能科技有限公司 | 产品经理</div>
+                        <p>A轮商业大数据公司</p>
                         <ul>
-                            <li>负责企业情报、进出口贸易、ESG三大产品线，搭建统一数据中台，实现年营收百万级</li>
-                            <li>主导周庄宣传片AI生成项目，验证AIGC在营销场景的价值</li>
-                            <li>作为Scrum Master建立双周迭代机制，项目准时交付率从60%→95%</li>
+                            <li>负责企业情报、进出口贸易、ESG三大产品线，实现年营收超百万</li>
+                            <li>作为Scrum Master建立双周迭代机制，将项目准时交付率从60%提升至95%</li>
+                            <li>负责周庄宣传片AI生成项目，基于Midjourney+Runway完成整支AI宣传片交付，将视频生产周期从数周压缩至数日</li>
+                            <li>协同市场与销售撰写产品软文、案例文章及新闻稿，维护公司官网与宣传物料，对接外部供应商与渠道伙伴，支持路演及招投标汇报</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-period">2021.08 - 2022.11</div>
-                        <div class="timeline-company">中电金信 · 产品经理</div>
+                        <div class="timeline-company">中电金信（上海）软件有限公司 | 产品经理</div>
                         <p>金融IT服务商</p>
                         <ul>
-                            <li>主导平安租赁SaaS平台（小程序/APP/后台/数字孪生），服务1000+制造企业，策划线上博览会实现GMV超5000万</li>
+                            <li>负责平安租赁设备租赁平台全栈设计（小程序/APP/后台/数字孪生），服务1000+制造企业，策划线上博览会实现GMV超5000万</li>
                             <li>协助撰写银行押品管理、统一授信等5+个解决方案标书</li>
                         </ul>
                     </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-period">2020.12 - 2021.08</div>
-                        <div class="timeline-company">贵州交通小额贷款有限公司 · 管培生</div>
-                        <ul>
-                            <li>参与贵州交建集团30亿授信评估，从企业信用、关联关系等维度进行风险分析，建立金融风控底层认知</li>
-                            <li>负责商票通产品结算与再贴现票据融资，理解产业链金融数据流转逻辑</li>
-                            <li>使用用友软件编制黔通智联上市审计财务资料，掌握企业财务数据规范与治理要点</li>
-                        </ul>
-                    </div>
-
-                    <h2>项目经历</h2>
+                    <h2>核心项目经历</h2>
+                    <p>负责/深度参与3个核心项目：AI智能获客"超级名单"、商业情报SaaS"APEXDATA"、设备租赁SaaS"平安租赁"。</p>
                     
                     <div class="timeline-item">
                         <div class="timeline-period">2025.01 - 至今</div>
-                        <div class="timeline-company">超级名单 · 万得信息</div>
-                        <p>商业智能数据平台 · 对话式查询 + 表格AI分析</p>
+                        <div class="timeline-company">超级名单 · 万得</div>
+                        <p>AI营销拓客</p>
+                        <p><strong>产品定义</strong>：统一"对话式查询"与"表格AI分析"，支持自然语言找企业、表格中AI生成分析列</p>
+                        <p><strong>核心职责</strong>：</p>
                         <ul>
-                            <li>通过20+客户访谈识别三大核心场景，设计置信度阈值与拒答策略，平衡准确性与用户体验</li>
-                            <li>定义知识库分层策略与混合检索方案，召回率提升17pp至89%；搭建角色Prompt模板库，回答准确率91%</li>
-                            <li>设计"AI生成列"功能，分析师手工操作从30分钟→1分钟；功能使用率占整体查询量42%，3家机构客户作为核心工具</li>
-                            <li>自建A/B测试框架，20+埋点驱动模型周迭代</li>
+                            <li><strong>场景抽象</strong>：基于20+家机构客户访谈，抽象"找客户""找供应商""找竞对""找渠道"四类高频获客场景，沉淀标准化查询流程</li>
+                            <li><strong>AI查询能力设计（大模型+检索）</strong>：协同算法和数据团队拆解"一句话找企业"能力，设计自然语言意图识别与实体抽取流程，将地域、产业链、政策标签、产品等隐含条件结构化为统一特征体系，支撑AI自然语言查询</li>
+                            <li><strong>Agent流程与打分策略</strong>：负责设计"超级名单 Agent"多渠道拓客流程与打分规则，定义特征词匹配、招投标/招聘数据融合及多渠道加权规则，并形成可复用的产品/算法文档</li>
+                            <li><strong>交互与话术优化</strong>：结合销售、投研同事的真实提问场景，持续打磨AI问答话术与结果展示结构，提升结果可读性与决策效率</li>
+                            <li><strong>效率提升</strong>：设计"AI生成列"交互，通过Prompt模板与上下文管理将大模型输出结构化为可直接入库的字段值，将分析师常用计算抽象为模板，单次企业筛选与打标时间从约30分钟降至1分钟</li>
+                            <li><strong>效果评估体系</strong>：搭建以F1、召回率、准确率为核心的统一评估体系，与数据同事共同制定埋点与指标口径，设计AI生成评估报表，实现一键产出效果分析并支撑策略、模型与前端交互的周迭代</li>
                         </ul>
+                        <p><strong>业务成果</strong>：内测阶段月活用户达数百人，AI查询日均调用数十次，在企业库功能使用中位居前列</p>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-period">2022.11 - 2024.12</div>
                         <div class="timeline-company">APEXDATA商业情报平台 · 天仪基业</div>
-                        <p>企业级情报SaaS · 服务60+企业/10000+个人用户</p>
+                        <p>企业级情报SaaS</p>
+                        <p><strong>产品定位</strong>：整合工商、舆情、投融资及海关数据，解决投资机构"找项目难、尽调贵、风控滞后"痛点，同时帮助外贸企业与政府招商部门洞察市场</p>
+                        <p><strong>核心职责</strong>：</p>
                         <ul>
-                            <li>设计12类异构数据源整合方案，建立企业ID映射体系，数据覆盖率98%</li>
-                            <li>搭建尽调报告自动生成功能，聚合9大维度数据，尽调成本从数万元→数千元</li>
-                            <li>设计经营异常、股权变动、舆情危机三级预警机制，连续两年为财联社"科创好公司"评选提供评分</li>
-                            <li>2023年11-12月主导财联社「科创好公司」评选项目，从经营、资金、科创三大维度搭建企业科创能力评估模型，完成1000+企业评估验证</li>
-                            <li>制定SaaS订阅+API+私有化三层定价，主导标杆客户交付</li>
+                            <li><strong>平台架构规划</strong>：牵头规划APEXDATA商业情报平台整体架构，明确"企业尽调+营销拓客+招商决策"三大核心场景，设计跨端（Web/后台/小程序/H5）的产品形态与数据流转</li>
+                            <li><strong>企业画像与风险视图</strong>：结合工商、舆情、投融资、海关等多源数据，设计企业画像与风险视图，支持投前尽调、投后跟踪与区域招商筛选</li>
+                            <li><strong>尽调报告自动化</strong>：设计企业尽调与风险评价报告生成流程，抽象金融机构KYC需求与另类数据使用方式，降低项目尽调的人力投入</li>
+                            <li><strong>招商分析产品化</strong>：基于海关数据与产业链信息，协同政府客户搭建"产业大脑/招商雷达"类分析视图，输出目标企业清单与区域产业分析</li>
+                            <li><strong>解决方案</strong>：与商务团队配合打磨标准解决方案与交付模板，支持财联社等合作方的产品化集成与项目落地</li>
+                            <li><strong>路演与需求反馈</strong>：面向券商、银行及地方政府招商等客户进行方案路演与产品演示，收集一线反馈并反向推动产品迭代</li>
                         </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-period">2023.10 - 2024.12</div>
-                        <div class="timeline-company">贸易瞭望塔 · 天仪基业</div>
-                        <p>跨境贸易分析平台 · 签约3省政府/5家券商</p>
-                        <ul>
-                            <li>设计海关提单多维分析模型，实现供应链分析与竞对监控</li>
-                            <li>集成LinkedIn/Google渠道，关键人挖掘准确率85%，创造商业对话机会</li>
-                            <li>中金公司等5家券商纳入核心投研工具，上线半年ARR超80万</li>
-                            <li>制定海关数据脱敏与权限隔离方案，通过合规审计</li>
-                        </ul>
+                        <p><strong>业务成果</strong>：服务企业客户60+，连续两年为财联社"科创好公司"评选提供数据支持；与中金、财联社、部分运营商及地方政府招商机构等建立合作</p>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-period">2021.12 - 2022.11</div>
                         <div class="timeline-company">平安租赁SaaS平台 · 中电金信</div>
-                        <p>设备租赁撮合平台 · 服务1000+制造企业</p>
+                        <p>订单/设备撮合平台</p>
+                        <p><strong>产品定位</strong>：连接制造企业、平安租赁与设备供应商的设备租赁撮合平台，覆盖线上获客、合同签署与资产管理全流程</p>
+                        <p><strong>核心职责</strong>：</p>
                         <ul>
-                            <li>负责小程序/APP/后台/数字孪生工厂四端产品，实现全流程数字化</li>
-                            <li>策划10周年"制造互联-线上博览会"，直播PV 16W+，GMV超5000万</li>
+                            <li><strong>产品设计</strong>：负责小程序/APP/后台/数字孪生工厂四端产品全栈设计，梳理设备租赁业务流程与核心指标，服务1000+制造企业</li>
+                            <li><strong>数据模型设计</strong>：协同前端、后端与三维可视化团队，定义设备、订单、客户三大基础数据模型及关键交互路径，提升多端体验一致性</li>
+                            <li><strong>活动策划</strong>：联合市场与运营团队规划活动玩法与转化路径，确保产品功能承接营销与招商需求</li>
                         </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-period">2024.03</div>
-                        <div class="timeline-company">AI生成内容验证 · 天仪基业</div>
-                        <p>周庄宣传片AI生成项目</p>
-                        <ul>
-                            <li>验证Midjourney+Runway内容生产可行性，输出技术可行性报告与成本效益分析</li>
-                        </ul>
+                        <p><strong>业务成果</strong>：策划10周年"制造互联-线上博览会"，直播PV 16W+，促成设备成交300+笔，GMV超5000万</p>
                     </div>
 
                     <h2>教育背景</h2>
@@ -1073,7 +994,7 @@
             // 创建下载链接
             const link = document.createElement('a');
             link.href = url;
-            link.download = 'Willow_Chen_Resume.html';
+            link.download = '陈婷婷_简历.html';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
